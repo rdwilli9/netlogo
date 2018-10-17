@@ -51,8 +51,11 @@ to go
 
   ask boats [
     set total-catch 0
+    if biomass > 50
+    [
     go-fish
     set yield yield + catch
+  ]
   ]
   set cumyield cumyield + yield
   ask boats [
@@ -71,6 +74,18 @@ to movefish
 end
 
 to moveboats
+  if movementrule = "combine"
+    [ifelse total-catch > 0
+        [rt random-float 50 - random-float 50]
+    ; case 1, more than 1 schools
+        [if count schools in-radius radius > 1
+      [let target max-one-of schools [school-size]
+       face target];end if in else case 1
+    ; case 2, only 1 school
+    if count schools in-radius radius > 0
+      [let target min-one-of schools [distance myself]
+       face target];end if in else case 2
+
   if movementrule = "random" [rt random-float 50 - random-float 50]
   if movementrule = "radius" [
     if count schools in-radius radius > 0 [
@@ -107,6 +122,8 @@ to go-fish ;; fishing
   if prey = nobody [set prey one-of schools-on neighbors]     ;; grab a random school nearby
   if prey != nobody ;; did we get one?
   [
+    if [school-size] of prey > 2 ;not catch if too small
+    [
     ifelse total-catch + (.5 * [school-size] of prey) of prey  >= boat-capacity
     [
       set catch boat-capacity - total-catch
@@ -116,7 +133,7 @@ to go-fish ;; fishing
     [
       set catch (.5 * [school-size] of prey)
       ask prey [die]
-    ]
+    ]]
   ]
   set total-catch total-catch + catch
 end
