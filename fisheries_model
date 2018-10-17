@@ -114,7 +114,7 @@ to go-fish ;; fishing
       ask prey [set school-size school-size - catch2]
     ]
     [
-      set catch [school-size] of prey
+      set catch (.5 * [school-size] of prey)
       ask prey [die]
     ]
   ]
