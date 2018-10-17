@@ -107,7 +107,7 @@ to go-fish ;; fishing
   if prey = nobody [set prey one-of schools-on neighbors]     ;; grab a random school nearby
   if prey != nobody ;; did we get one?
   [
-    ifelse total-catch + [school-size] of prey  >= boat-capacity
+    ifelse total-catch + (.5 * [school-size] of prey) of prey  >= boat-capacity
     [
       set catch boat-capacity - total-catch
       let catch2 catch
