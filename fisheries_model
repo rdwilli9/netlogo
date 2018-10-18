@@ -124,14 +124,14 @@ to go-fish ;; fishing
   [
     if [school-size] of prey > 2 ;not catch if too small
     [
-    ifelse total-catch + (.5 * [school-size] of prey) of prey  >= boat-capacity
+    ifelse total-catch +  [school-size] of prey of prey  >= boat-capacity
     [
       set catch boat-capacity - total-catch
       let catch2 catch
       ask prey [set school-size school-size - catch2]
     ]
     [
-      set catch (.5 * [school-size] of prey)
+      set catch [school-size] of prey
       ask prey [die]
     ]]
   ]
