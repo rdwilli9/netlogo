@@ -101,15 +101,12 @@ end
 
 to go-fish ;; fishing
 
-  let prey nobody 
-  ifelse catch > 0  ;for strategy 1
-  [set catch 0] ; for strategy 1
+  let prey nobody
 
-  [
     set catch 0
   set prey one-of schools-on patch-here
   if prey = nobody [set prey one-of schools-on neighbors]     ;; grab a random school nearby
-  if (prey != nobody) and ([school-size] of prey > 10) ; for strategy 7;; did we get one?
+  if (prey != nobody) and ([school-size] of prey >= school-minimum-size) ; for strategy 7;; did we get one?
   [
     ifelse total-catch +  [school-size] of prey  >= boat-capacity
     [
@@ -122,6 +119,6 @@ to go-fish ;; fishing
       ask prey [die]
     ]
 
-]]
+]
     set total-catch total-catch + catch
 end
