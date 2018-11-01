@@ -1,0 +1,38 @@
+globals [
+willingness-to-join 
+]
+
+
+
+to setup
+  ca
+crt farmers
+  ask turtles [
+  setxy random-pxcor random-pycor
+  set color 15
+  set willingness-to-join random-float 1
+  ]
+  ask n-of 250 turtles
+  [set color 65]
+  reset-ticks
+end
+
+
+
+to go 
+
+recruit-farmers  
+tick
+end
+
+
+to recruit-farmers
+  ask turtles[
+    ifelse any? turtles in-radius radius with [color = 65]
+  [
+      if willingness-to-join >= .75
+      [set color 65]]
+  [set willingness-to-join willingness-to-join + .1]
+  
+]
+end
