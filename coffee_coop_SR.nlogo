@@ -11,7 +11,7 @@ turtles-own [
 
 to setup
   ca
-  crt initial_coop_members [               ;; create the x number of members based on the slider
+  crt farmers [                            ;; create the x number of members based on the slider
     setxy random-xcor random-ycor          ;; random position for members
     set color yellow                       ;; an initial color for every member
     set shape "person"                     ;; turtles look like a person (because they are persons)
@@ -19,10 +19,10 @@ to setup
     set identity-value random-float 1      ;; initialization of identity value
     set benefits 0
     set costs 0
-    set capital ( initial-capital + external_investment ) - costs ;; initialization of capital function
+    set capital ( random-float initial-capital + external_investment ) - costs ;; initialization of capital function
   ]
     ask turtles [
-      if identity-value >= 0.8             ;; if the identity value is greater or equal to 0.8, a person becomes a coop member
+      if identity-value >= 0.7             ;; if the identity value is greater or equal to 0.8, a person becomes a coop member
     [set color red]                        ;; members are red
 
   ]
@@ -48,14 +48,13 @@ to accounting
 end
 
 to join_coop
-if identity-value >= 0.7         ;; you will join the coop if your identity value es greater or equal to t0.7
+  if identity-value >= 0.6 and color != red        ;; you will join the coop if your identity value es greater or equal to 0.6
   [set color blue]
 end
 
 to-report distance-market
   report [distance myself] of patch 0 0        ;; report the distance of each person to the market
 end
-
 
 
 
@@ -90,9 +89,9 @@ ticks
 
 BUTTON
 17
-27
+26
 83
-60
+59
 NIL
 setup
 NIL
@@ -114,7 +113,7 @@ external_investment
 external_investment
 0
 100
-8.0
+14.0
 1
 1
 NIL
@@ -125,11 +124,11 @@ SLIDER
 184
 220
 217
-initial_coop_members
-initial_coop_members
+farmers
+farmers
 0
 1500
-495.0
+404.0
 1
 1
 NIL
@@ -144,7 +143,7 @@ initial-capital
 initial-capital
 0
 100
-20.0
+24.0
 1
 1
 NIL
