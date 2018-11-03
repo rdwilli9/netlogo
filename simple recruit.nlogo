@@ -9,8 +9,9 @@ globals []
 to setup
  clear-all
 
-  crt 75
-  [ setxy random-pxcor random-pycor
+  
+  crt 25  
+  [ setxy 15 -15 
     set breed farmer
   set color green
     set likely random-float .5
@@ -18,20 +19,94 @@ to setup
       ifelse resist < 1
     [set size 1]
       [set size resist]
-    if any? turtles-on patch-here [ move-to one-of patches with [not any? turtles-here]]
-
+    if any? turtles-on patch-here [ move-to one-of patches in-radius 10 with [not any? turtles-here]]
   ]
-    crt 15
-  [ setxy random-pxcor random-pycor
+      crt 25  
+  [ setxy -10 -10 
+    set breed farmer
+  set color green
+    set likely random-float .5
+     set resist random-poisson 1
+      ifelse resist < 1
+    [set size 1]
+      [set size resist]
+    if any? turtles-on patch-here [ move-to one-of patches in-radius 10 with [not any? turtles-here]]
+    
+  ]
+  
+  crt 25
+  [  setxy -20 15
+    set breed farmer
+  set color green
+    set likely random-float .5
+     set resist random-poisson 1
+      ifelse resist < 1
+    [set size 1]
+      [set size resist]
+    if any? turtles-on patch-here [ move-to one-of patches in-radius 10 with [not any? turtles-here]]
+
+    
+  ]
+  
+  crt 25
+  [   setxy 20 20
+    set breed farmer
+  set color green
+    set likely random-float .5
+     set resist random-poisson 1
+      ifelse resist < 1
+    [set size 1]
+      [set size resist]
+    if any? turtles-on patch-here [ move-to one-of patches in-radius 10 with [not any? turtles-here]]
+    
+  ]
+    crt 5
+  [  setxy 15 -15  
     set breed cofarmer
-       set influence random-poisson 1
+      
+    set influence random-poisson 1
     set color blue
    
     ifelse influence < 1
     [set size 1]
       [set size influence]
-
-    if any? turtles-on patch-here [ move-to one-of patches with [not any? turtles-here]]]
+    if any? turtles-on patch-here [ move-to one-of patches in-radius 10 with [not any? turtles-here]]]
+  
+   crt 5
+  [  setxy -10 -10  
+    set breed cofarmer
+      
+    set influence random-poisson 1
+    set color blue
+   
+    ifelse influence < 1
+    [set size 1]
+      [set size influence]
+    if any? turtles-on patch-here [ move-to one-of patches in-radius 10 with [not any? turtles-here]]]
+ 
+ crt 5 
+  [   setxy -20 15 
+    set breed cofarmer
+      
+    set influence random-poisson 1
+    set color blue
+   
+    ifelse influence < 1
+    [set size 1]
+      [set size influence]
+    if any? turtles-on patch-here [ move-to one-of patches in-radius 10 with [not any? turtles-here]]]
+  
+   crt 5 
+  [  setxy 20 20
+    set breed cofarmer
+      
+    set influence random-poisson 1
+    set color blue
+   
+    ifelse influence < 1
+    [set size 1]
+      [set size influence]
+    if any? turtles-on patch-here [ move-to one-of patches in-radius 10 with [not any? turtles-here]]]
 
   reset-ticks
 end
