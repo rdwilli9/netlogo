@@ -121,7 +121,7 @@ end
 
 
 to recruit
-   ask one-of cofarmer [
+   ask-concurrent cofarmer [
     if any? farmer in-radius (3 + influence)
     [Create-link-with one-of farmer in-radius (3 + influence)]]
   ask cofarmer 
@@ -136,7 +136,7 @@ to recruit
 end
 
 to join
-  ask farmer [
+  ask-concurrent farmer [
   if likely > 1
     [let inf resist
     set breed cofarmer
@@ -147,7 +147,7 @@ to join
 end
 
 to thwart
-  ask one-of farmer [
+  ask-concurrent farmer [
     let power resist
     if any? other farmer in-radius (3 + resist)
     [ set buddy one-of other farmer in-radius (3 + resist)
