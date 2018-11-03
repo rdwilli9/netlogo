@@ -1,7 +1,8 @@
 turtles-own [ co-op ]
 breed [cofarmer cofarmers]
 breed [farmer farmers]
-farmer-own [rec likely]
+farmer-own [rec likely resist buddy resister]
+cofarmer-own [influence]
 globals []
 
 
@@ -12,12 +13,23 @@ to setup
   [ setxy random-pxcor random-pycor
     set breed farmer
   set color green
-    set likely random-float 1
-    if any? turtles-on patch-here [ move-to one-of patches with [not any? turtles-here]]]
+    set likely random-float .5
+     set resist random-poisson 1
+      ifelse resist < 1
+    [set size 1]
+      [set size resist]
+    if any? turtles-on patch-here [ move-to one-of patches with [not any? turtles-here]]
+
+  ]
     crt 15
   [ setxy random-pxcor random-pycor
     set breed cofarmer
-      set color blue
+       set influence random-poisson 1
+    set color blue
+   
+    ifelse influence < 1
+    [set size 1]
+      [set size influence]
 
     if any? turtles-on patch-here [ move-to one-of patches with [not any? turtles-here]]]
 
@@ -27,25 +39,57 @@ end
 to go
   clear-patches
   recruit
+thwart
   join
   tick
 end
 
 
 to recruit
-  ask one-of farmer
-  [ifelse any? cofarmer in-radius 3
-    [set rec rec + 1]
-    [ set likely likely + likely]]
-  ask patches [set pcolor white]
+   ask one-of cofarmer [
+    if any? farmer in-radius (3 + influence)
+    [Create-link-with one-of farmer in-radius (3 + influence)]]
+  ask cofarmer 
+  [ let power influence 
+    ask in-link-neighbors
+    [ let difference power - resist
+      ifelse difference > 0   
+      [set likely likely * (1 + (difference / 10))]
+      [set likely likely * 1.1
+  ]]
+  ]
 end
 
 to join
   ask farmer [
-  if rec * likely > 1
-    [set breed cofarmer
-  set color blue]]
+  if likely > 1
+    [let inf resist
+    set breed cofarmer
+  set color blue
+  set influence inf
+      
+  ]]
 end
+
+to thwart
+  ask one-of farmer [
+    let power resist
+    if any? other farmer in-radius (3 + resist)
+    [ set buddy one-of other farmer in-radius (3 + resist)
+      Create-link-with buddy
+      
+       if buddy != 0
+       [ ask buddy
+        [ let res resist 
+            let difference power - res
+      ifelse difference > 0   
+      [set likely likely * (1 - (difference / 10))]
+        [set likely likely ]
+  ]
+  ]]]
+end
+
+
 @#$#@#$#@
 GRAPHICS-WINDOW
 210
