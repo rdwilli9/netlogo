@@ -1,16 +1,16 @@
-turtles-own [ co-op ]
+turtles-own [  ]
 breed [cofarmer cofarmers]
 breed [farmer farmers]
 farmer-own [rec likely resist buddy resister]
 cofarmer-own [influence]
-globals []
+globals [ ]
 
 
 to setup
  clear-all
 
-  crt 75
-  [ setxy random-pxcor random-pycor
+  crt 25
+  [ setxy 15 -15
     set breed farmer
   set color green
     set likely random-float .5
@@ -18,84 +18,170 @@ to setup
       ifelse resist < 1
     [set size 1]
       [set size resist]
-    if any? turtles-on patch-here [ move-to one-of patches with [not any? turtles-here]]
+    if any? turtles-on patch-here [ move-to one-of patches in-radius 10 with [not any? turtles-here]]
+  ]
+      crt 25
+  [ setxy -10 -10
+    set breed farmer
+  set color green
+    set likely random-float .5
+     set resist random-poisson 1
+      ifelse resist < 1
+    [set size 1]
+      [set size resist]
+    if any? turtles-on patch-here [ move-to one-of patches in-radius 10 with [not any? turtles-here]]
 
   ]
-    crt 15
-  [ setxy random-pxcor random-pycor
+
+  crt 25
+  [  setxy -20 15
+    set breed farmer
+  set color green
+    set likely random-float .5
+     set resist random-poisson 1
+      ifelse resist < 1
+    [set size 1]
+      [set size resist]
+    if any? turtles-on patch-here [ move-to one-of patches in-radius 10 with [not any? turtles-here]]
+
+
+  ]
+
+  crt 25
+  [   setxy 20 20
+    set breed farmer
+  set color green
+    set likely random-float .5
+     set resist random-poisson 1
+      ifelse resist < 1
+    [set size 1]
+      [set size resist]
+    if any? turtles-on patch-here [ move-to one-of patches in-radius 10 with [not any? turtles-here]]
+
+  ]
+    crt 5
+  [  setxy 15 -15
     set breed cofarmer
-       set influence random-poisson 1
+
+    set influence random-poisson 1
     set color blue
-   
+
     ifelse influence < 1
     [set size 1]
       [set size influence]
+    if any? turtles-on patch-here [ move-to one-of patches in-radius 10 with [not any? turtles-here]]]
 
-    if any? turtles-on patch-here [ move-to one-of patches with [not any? turtles-here]]]
+   crt 5
+  [  setxy -10 -10
+    set breed cofarmer
+
+    set influence random-poisson 1
+    set color blue
+
+    ifelse influence < 1
+    [set size 1]
+      [set size influence]
+    if any? turtles-on patch-here [ move-to one-of patches in-radius 10 with [not any? turtles-here]]]
+
+ crt 5
+  [   setxy -20 15
+    set breed cofarmer
+
+    set influence random-poisson 1
+    set color blue
+
+    ifelse influence < 1
+    [set size 1]
+      [set size influence]
+    if any? turtles-on patch-here [ move-to one-of patches in-radius 10 with [not any? turtles-here]]]
+
+   crt 5
+  [  setxy 20 20
+    set breed cofarmer
+
+    set influence random-poisson 1
+    set color blue
+
+    ifelse influence < 1
+    [set size 1]
+      [set size influence]
+    if any? turtles-on patch-here [ move-to one-of patches in-radius 10 with [not any? turtles-here]]]
+
 
   reset-ticks
 end
 
 to go
-  clear-patches
+
+
   recruit
-thwart
-  join
-  tick
+    thwart
+
+ clear-links
+tick
 end
 
 
 to recruit
-   ask one-of cofarmer [
+
+  ask-concurrent cofarmer [
     if any? farmer in-radius (3 + influence)
     [Create-link-with one-of farmer in-radius (3 + influence)]]
-  ask cofarmer 
-  [ let power influence 
+  ask cofarmer
+  [ let power influence
     ask in-link-neighbors
     [ let difference power - resist
-      ifelse difference > 0   
+      ifelse difference > 0
       [set likely likely * (1 + (difference / 10))]
       [set likely likely * 1.1
   ]]
   ]
+
+
+
+
+
+ join
+
+
+
 end
 
 to join
-  ask farmer [
+
+  ask-concurrent farmer [
   if likely > 1
     [let inf resist
     set breed cofarmer
   set color blue
   set influence inf
-      
+
   ]]
 end
 
 to thwart
-  ask one-of farmer [
+  ask-concurrent farmer [
     let power resist
     if any? other farmer in-radius (3 + resist)
     [ set buddy one-of other farmer in-radius (3 + resist)
       Create-link-with buddy
-      
+
        if buddy != 0
        [ ask buddy
-        [ let res resist 
+        [ let res resist
             let difference power - res
-      ifelse difference > 0   
+      ifelse difference > 0
       [set likely likely * (1 - (difference / 10))]
         [set likely likely ]
   ]
   ]]]
 end
-
-
 @#$#@#$#@
 GRAPHICS-WINDOW
 210
 10
-647
-448
+1011
+812
 -1
 -1
 13.0
@@ -108,10 +194,10 @@ GRAPHICS-WINDOW
 0
 0
 1
--16
-16
--16
-16
+-30
+30
+-30
+30
 0
 0
 1
@@ -494,7 +580,7 @@ false
 Polygon -7500403 true true 270 75 225 30 30 225 75 270
 Polygon -7500403 true true 30 75 75 30 270 225 225 270
 @#$#@#$#@
-NetLogo 6.0.2
+NetLogo 6.0.4
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
