@@ -16,7 +16,7 @@ to setup
     set shape "person"
     set likely random-float .5
      set resist random-poisson 1
-    set debt random -10 
+    set debt random -9
       ifelse resist < 1
     [set size 1]
       [set size resist]
@@ -29,7 +29,7 @@ to setup
     set shape "person"
     set likely random-float .5
      set resist random-poisson 1
-     set debt random -10
+     set debt random -9
       ifelse resist < 1
     [set size 1]
       [set size resist]
@@ -44,7 +44,7 @@ to setup
     set shape "person"
     set likely random-float .5
      set resist random-poisson 1
-        set debt random -10
+        set debt random -9
       ifelse resist < 1
     [set size 1]
       [set size resist]
@@ -60,7 +60,7 @@ to setup
     set shape "person"
     set likely random-float .5
      set resist random-poisson 1
-     set debt random -10
+     set debt random -9
       ifelse resist < 1
     [set size 1]
       [set size resist]
@@ -140,9 +140,9 @@ to recruit
     ask in-link-neighbors
     [ let difference power - resist
      if difference < 1
-      [ifelse difference > 0 
+      [ifelse difference > 0
       [set likely likely * (1 + (difference / 10))]
-      [set likely likely * 1 ]
+      [set likely likely * 1.1 ]
     ]]
   ]
 
@@ -167,7 +167,7 @@ to join
   set shape "person"
   set influence inf
 ]
-      [set debt debt + 1]    
+      [set debt debt + 1]
  ]
  ]
 end
