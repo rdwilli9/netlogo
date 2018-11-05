@@ -1,4 +1,4 @@
-turtles-own [  ]
+turtles-own [debt ]
 breed [cofarmer cofarmers]
 breed [farmer farmers]
 farmer-own [rec likely resist buddy resister]
@@ -13,8 +13,10 @@ to setup
   [ setxy 15 -15
     set breed farmer
   set color green
+    set shape "person"
     set likely random-float .5
      set resist random-poisson 1
+    set debt random -10 
       ifelse resist < 1
     [set size 1]
       [set size resist]
@@ -24,8 +26,10 @@ to setup
   [ setxy -10 -10
     set breed farmer
   set color green
+    set shape "person"
     set likely random-float .5
      set resist random-poisson 1
+     set debt random -10
       ifelse resist < 1
     [set size 1]
       [set size resist]
@@ -37,8 +41,10 @@ to setup
   [  setxy -20 15
     set breed farmer
   set color green
+    set shape "person"
     set likely random-float .5
      set resist random-poisson 1
+        set debt random -10
       ifelse resist < 1
     [set size 1]
       [set size resist]
@@ -51,8 +57,10 @@ to setup
   [   setxy 20 20
     set breed farmer
   set color green
+    set shape "person"
     set likely random-float .5
      set resist random-poisson 1
+     set debt random -10
       ifelse resist < 1
     [set size 1]
       [set size resist]
@@ -62,7 +70,7 @@ to setup
     crt 5
   [  setxy 15 -15
     set breed cofarmer
-
+    set shape "person"
     set influence random-poisson 1
     set color blue
 
@@ -74,7 +82,7 @@ to setup
    crt 5
   [  setxy -10 -10
     set breed cofarmer
-
+    set shape "person"
     set influence random-poisson 1
     set color blue
 
@@ -86,7 +94,7 @@ to setup
  crt 5
   [   setxy -20 15
     set breed cofarmer
-
+    set shape "person"
     set influence random-poisson 1
     set color blue
 
@@ -98,7 +106,7 @@ to setup
    crt 5
   [  setxy 20 20
     set breed cofarmer
-
+    set shape "person"
     set influence random-poisson 1
     set color blue
 
@@ -131,10 +139,11 @@ to recruit
   [ let power influence
     ask in-link-neighbors
     [ let difference power - resist
-      ifelse difference > 0
+     if difference < 1
+      [ifelse difference > 0 
       [set likely likely * (1 + (difference / 10))]
-      [set likely likely * 1.1
-  ]]
+      [set likely likely * 1 ]
+    ]]
   ]
 
 
@@ -150,13 +159,17 @@ end
 to join
 
   ask-concurrent farmer [
-  if likely > 1
+  if debt > -8
+   [ ifelse likely > 1 and debt > -1
     [let inf resist
     set breed cofarmer
   set color blue
+  set shape "person"
   set influence inf
-
-  ]]
+]
+      [set debt debt + 1]    
+ ]
+ ]
 end
 
 to thwart
