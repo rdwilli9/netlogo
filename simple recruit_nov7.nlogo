@@ -134,13 +134,17 @@ to recruit
   [ let power influence
     ask in-link-neighbors
     [ let difference power - resist
-     if difference < 1
-      [ifelse difference > 0
-      [set likely likely * (1 + (difference / 10))]
-      [set likely likely * 1.1 ]
-    ]]
+    
+      ifelse difference > 0
+      [ifelse likely < 1
+         [ set likely likely * (1 + (difference / 10))]
+          [set likely 1]]
+      [ifelse likely < 1
+          [set likely likely * 1.1 ]
+          [set likely 1]]
+      
+    ]
   ]
-
 
 
 
