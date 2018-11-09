@@ -48,7 +48,7 @@ to setup
       ifelse resist < 1
     [set size 1]
       [set size resist]
-    if any? turtles-on patch-here [ move-to one-of patches in-radius village_size with ]
+    if any? turtles-on patch-here [ move-to one-of patches in-radius village_size ]
   ]
 
   crt persons / 4
