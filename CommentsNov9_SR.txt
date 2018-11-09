@@ -1,0 +1,23 @@
+About the model:
+
+Comments:
+1. I ordered the code to improve its readability.
+2. I included some descriptions on the procedures. There is also work to do on that.
+3. I separated the debt between farmers and co-farmers
+4. I created a slider called coop-benefit which affects the co-farmers debt (a benefit to be part of the co-op).
+5. I added the variable “reputation” instead influence. Reputation is something given and could be a function of other variables (thing to explore), while “influence” is about the capacity of one agent to spread the message through links. Consequently, I added a reporter called “influence” which count the number of links of co-producers.
+6. I redefined the local variable called “power”. The power of a co-farmer is given by its reputation minus his debt. You can have a good reputation but if you are in debt, your power won’t be enough.
+7. I added a variable called “identity” using a random-float between 0 and 0.3. This variable define something like kins of turtles. Then I added and option on the code (to join procedure) to include, if we want, a homophily condition on the recruitment of green turtles (based on the kin).
+8. I added also a procedure to resize blue turtles based on their reputation and influence (which is a reporter as I told above).
+9. I added a plot with the number of links per tick.
+10. I added a histogram with the size (a function of “reputation” plus “influence).
+
+Ideas and thoughts
+
+1. Maybe we should explore the normalization of variable values (when that should be pertinent) as a way to deal with the asymmetries in the model.
+2. Definition of time units is needed.
+3. In the (;;) comments should be useful to describe and explain values and operations between values (is not complete).
+4. Maybe we should explore more the idea of affect through reporters some variables (like “reputation”).
+
+Cheers,
+Sebastián
