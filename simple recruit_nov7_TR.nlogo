@@ -30,7 +30,7 @@ to setup
     set shape "person"
     set likely random-float .5
      set resist random-poisson 1
-     set debt max_debt_level
+     set debt random max_debt_level
       ifelse resist < 1
     [set size 1]
       [set size resist]
@@ -44,7 +44,7 @@ to setup
     set shape "person"
     set likely random-float .5
      set resist random-poisson 1
-        set debt max_debt_level
+        set debt random max_debt_level
       ifelse resist < 1
     [set size 1]
       [set size resist]
@@ -58,7 +58,7 @@ to setup
     set shape "person"
     set likely random-float .5
      set resist random-poisson 1
-     set debt max_debt_level
+     set debt random max_debt_level
       ifelse resist < 1
     [set size 1]
       [set size resist]
