@@ -20,7 +20,7 @@ to setup
       ifelse resist < 1
     [set size 1]
       [set size resist]
-    if any? turtles-on patch-here [ move-to one-of patches in-radius village_size with [not any? turtles-here]]
+    if any? turtles-on patch-here [ move-to one-of patches in-radius village_size ]
   ]
 
   crt persons / 4
@@ -34,7 +34,7 @@ to setup
       ifelse resist < 1
     [set size 1]
       [set size resist]
-    if any? turtles-on patch-here [ move-to one-of patches in-radius village_size with [not any? turtles-here]]
+    if any? turtles-on patch-here [ move-to one-of patches in-radius village_size ]
   ]
 
   crt persons / 4
@@ -48,7 +48,7 @@ to setup
       ifelse resist < 1
     [set size 1]
       [set size resist]
-    if any? turtles-on patch-here [ move-to one-of patches in-radius village_size with [not any? turtles-here]]
+    if any? turtles-on patch-here [ move-to one-of patches in-radius village_size with ]
   ]
 
   crt persons / 4
@@ -62,7 +62,7 @@ to setup
       ifelse resist < 1
     [set size 1]
       [set size resist]
-    if any? turtles-on patch-here [ move-to one-of patches in-radius village_size with [not any? turtles-here]]
+    if any? turtles-on patch-here [ move-to one-of patches in-radius village_size ]
 
   ]
     crt co-farmers / 4
@@ -74,7 +74,7 @@ to setup
     ifelse influence < 1
     [set size 1]
       [set size influence]
-    if any? turtles-on patch-here [ move-to one-of patches in-radius village_size with [not any? turtles-here]]]
+    if any? turtles-on patch-here [ move-to one-of patches in-radius village_size ]]
 
    crt co-farmers / 4
   [  setxy -10 -10
@@ -85,7 +85,7 @@ to setup
     ifelse influence < 1
     [set size 1]
       [set size influence]
-    if any? turtles-on patch-here [ move-to one-of patches in-radius village_size with [not any? turtles-here]]]
+    if any? turtles-on patch-here [ move-to one-of patches in-radius village_size ]]
 
  crt co-farmers / 4
   [   setxy -20 15
@@ -97,7 +97,7 @@ to setup
     ifelse influence < 1
     [set size 1]
       [set size influence]
-    if any? turtles-on patch-here [ move-to one-of patches in-radius village_size with [not any? turtles-here]]]
+    if any? turtles-on patch-here [ move-to one-of patches in-radius village_size ]]
 
    crt co-farmers / 4
   [  setxy 20 20
@@ -109,7 +109,7 @@ to setup
     ifelse influence < 1
     [set size 1]
       [set size influence]
-    if any? turtles-on patch-here [ move-to one-of patches in-radius village_size with [not any? turtles-here]]]
+    if any? turtles-on patch-here [ move-to one-of patches in-radius village_size]]
 
 
   reset-ticks
