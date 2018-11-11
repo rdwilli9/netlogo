@@ -1,5 +1,6 @@
 breed [cofarmer cofarmers]
 breed [farmer farmers]
+breed [monitor monitors]
 turtles-own  [identity]          ;; a value of identity given by a random-float number between 0 and 0.3
 farmer-own   [likely             ;; a value of affinity between producers given by random-float number between 0 and 0.5
               resist             ;; a value of resitance of farmers to being part of the co-op given by a random number based in a poisson distribution with mean equals to 1
@@ -130,10 +131,20 @@ to setup
     if any? turtles-on patch-here [ move-to one-of patches in-radius village_size]
     ]
 
+  crt rangers
+  [set breed monitor
+    set color red
+    set size 2
+   set heading random 360
+  ]
+
+
+
   reset-ticks
 end
 
 to go
+  monitor-farmers
   recruit
   thwart
   tick
@@ -143,8 +154,8 @@ end
 
 to recruit
   ask cofarmer [
-    if any? farmer in-radius 3                    ;;
-    [create-link-with one-of farmer in-radius 3
+    if any? farmer in-radius (3 + reputation)                ;;
+    [create-link-with one-of farmer in-radius (3 + reputation)
       let power reputation - cofarm_debt  ;; power is the influence minus your debt: if you have a good reputation but a big debt... you don't have enough real power.
      ask in-link-neighbors [
       let difference power - resist                              ;;
@@ -164,7 +175,7 @@ end
 to join
   ask farmer [
   if farm_debt > max_debt_level * .9 ;and identity > 0.1 ;; homophily condition: if neighbors have a certain identity (affects the enrollment)
-   [ifelse likely > 1 and farm_debt > max_debt_level * .1
+   [ifelse likely >= 1 and farm_debt > max_debt_level * .1
     [let inf resist
      set breed cofarmer
      set color blue
@@ -195,6 +206,42 @@ to thwart
 end
 
 
+to monitor-farmers
+
+ If Ranger-Activity = "Random Monitoring"  ;rangers roam and stop to talk to influential farmers they pass
+ [ ask monitor [fd 1
+    if any? monitor-on patch-here [fd 3]
+
+    if any? farmer with [resist > 2] in-radius 1 [
+   ask farmer-on patch-here
+      [ if farm_debt < 0 [ set farm_debt farm_debt * .9
+        if likely < 1 [set likely likely + .1]]]
+
+     rt random 20
+
+    ]
+  ]
+  ]
+
+  If Ranger-Activity = "Selective Monitoring" [  ;rangers go to talk to most influential farmers, give incentive to join
+
+
+    ask monitor [
+    ifelse any? farmer with [resist > 2]
+      [move-to one-of farmer with [resist > 2]
+    if any? monitor-on patch-here [move-to one-of other farmer with [resist > 2]]
+
+     ask farmer-on patch-here
+      [ if farm_debt < 0 [ set farm_debt farm_debt * .9
+        if likely < 1 [set likely likely + .1]]]
+    ]
+      [fd 2
+      rt random 20]
+  ]
+  ]
+
+end
+
 to resize
   ask turtles with [color = blue]
   [set size count link-neighbors + reputation] ;; udpdate the size
@@ -218,8 +265,8 @@ GRAPHICS-WINDOW
 1
 1
 0
-0
-0
+1
+1
 1
 -40
 40
@@ -274,7 +321,7 @@ persons
 persons
 0
 1250
-398.0
+247.0
 1
 1
 NIL
@@ -289,7 +336,7 @@ co-farmers
 co-farmers
 0
 250
-75.0
+24.0
 1
 1
 NIL
@@ -322,7 +369,7 @@ max_debt_level
 max_debt_level
 -1000
 0
--850.0
+-670.0
 10
 1
 NIL
@@ -355,7 +402,7 @@ village_size
 village_size
 5
 50
-17.0
+12.0
 1
 1
 NIL
@@ -411,6 +458,49 @@ false
 "" ""
 PENS
 "pen-0" 1.0 1 -13345367 true "" "histogram [size] of turtles with [color = blue]"
+
+SLIDER
+818
+155
+990
+188
+rangers
+rangers
+0
+20
+4.0
+1
+1
+NIL
+HORIZONTAL
+
+PLOT
+11
+540
+211
+690
+Resist of Farmer
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+false
+"" ""
+PENS
+"default" 1.0 1 -16777216 true "" "histogram [resist] of farmer"
+
+CHOOSER
+822
+201
+995
+246
+Ranger-Activity
+Ranger-Activity
+"Random Monitoring" "Selective Monitoring"
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
