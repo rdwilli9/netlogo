@@ -240,6 +240,12 @@ to monitor-farmers
   ]
   ]
 
+ If Ranger-Activity = "No Monitoring"  ;rangers roam and stop to talk to influential farmers they pass
+ [ ask monitor [die]
+
+    ]
+
+
 end
 
 to resize
@@ -499,7 +505,7 @@ CHOOSER
 246
 Ranger-Activity
 Ranger-Activity
-"Random Monitoring" "Selective Monitoring"
+"Random Monitoring" "Selective Monitoring" "No Monitoring"
 1
 
 @#$#@#$#@
