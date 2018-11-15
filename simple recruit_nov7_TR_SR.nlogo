@@ -5,8 +5,8 @@ turtles-own  [identity]          ;; a value of identity given by a random-float 
 farmer-own   [likely             ;; a value of affinity between producers given by random-float number between 0 and 0.5
               resist             ;; a value of resitance of farmers to being part of the co-op given by a random number based in a poisson distribution with mean equals to 1
               farm_debt          ;; a value of the overdrawn of coffee farmers given by a ajustable random value
-              buddy]             ;; a binary variable to identify farmer partners in thwarting
-
+              buddy             ;; a binary variable to identify farmer partners in thwarting
+              affinity]         ;; a value of affinity for rangers
 cofarmer-own [reputation         ;; the capacity of a co-farmer to be recognized as a trustworthy people
               cofarm_debt]       ;; value of the overdrawn of coffee co-farmers given by a ajustable random value
 globals [ ]
@@ -23,6 +23,7 @@ to setup
     set identity random-float 0.3
     set likely random-float .5
     set resist random-poisson 1
+    set affinity random-normal 1 1
     set farm_debt random max_debt_level  ;; size of farmers is determined by the resist value.
     ifelse resist < 1
       [set size 1]
@@ -38,6 +39,7 @@ to setup
     set identity random-float 0.3
     set likely random-float .5
     set resist random-poisson 1
+    set affinity random-normal 1 1
     set farm_debt random max_debt_level
     ifelse resist < 1
      [set size 1]
@@ -53,6 +55,7 @@ to setup
     set identity random-float 0.3
     set likely random-float .5
     set resist random-poisson 1
+    set affinity random-normal 1 1
     set farm_debt random max_debt_level
     ifelse resist < 1
      [set size 1]
@@ -68,6 +71,7 @@ to setup
     set identity random-float 0.3
     set likely random-float .5
     set resist random-poisson 1
+    set affinity random-normal 1 1
     set farm_debt random max_debt_level
     ifelse resist < 1
      [set size 1]
@@ -215,7 +219,7 @@ to monitor-farmers
     if any? farmer with [resist > 2] in-radius 1 [
    ask farmer-on patch-here
       [ if farm_debt < 0 [ set farm_debt farm_debt * .9
-        if likely < 1 [set likely likely + .1]]]
+        if likely < 1 [set likely (likely + (affinity * .1))]]]
 
      rt random 20
 
@@ -233,7 +237,7 @@ to monitor-farmers
 
      ask farmer-on patch-here
       [ if farm_debt < 0 [ set farm_debt farm_debt * .9
-        if likely < 1 [set likely likely + .1]]]
+        if likely < 1 [set likely (likely + (affinity * .1))]]]
     ]
       [fd 2
       rt random 20]
