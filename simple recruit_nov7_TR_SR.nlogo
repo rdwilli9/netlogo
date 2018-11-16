@@ -86,7 +86,7 @@ to setup
     set identity random-float 0.3
     set reputation random-poisson 1
     set color blue
-    set cofarm_debt random max_debt_level -  coop_benefit ;; coo-benefit is a global adjustable parameter. Being part of a co-op represent economical benefits.
+    set cofarm_debt random max_debt_level +  coop_benefit ;; coo-benefit is a global adjustable parameter. Being part of a co-op represent economical benefits.
     ifelse reputation < 1   ;; size of co-farmers is determined by the reputation value.
       [set size 1]
       [set size reputation]
@@ -100,7 +100,7 @@ to setup
     set identity random-float 0.3
     set reputation random-poisson 1
     set color blue
-    set cofarm_debt random max_debt_level - coop_benefit
+    set cofarm_debt random max_debt_level + coop_benefit
     ifelse reputation < 1
       [set size 1]
       [set size reputation]
@@ -114,7 +114,7 @@ to setup
     set identity random-float 0.3
     set reputation random-poisson 1
     set color blue
-    set cofarm_debt random max_debt_level - coop_benefit
+    set cofarm_debt random max_debt_level + coop_benefit
     ifelse reputation < 1
       [set size 1]
       [set size reputation]
@@ -128,7 +128,7 @@ to setup
     set identity random-float 0.3
     set reputation random-poisson 1
     set color blue
-    set cofarm_debt random max_debt_level - coop_benefit
+    set cofarm_debt random max_debt_level + coop_benefit
     ifelse reputation < 1
       [set size 1]
       [set size reputation]
@@ -218,11 +218,12 @@ to monitor-farmers
 
     if any? farmer with [resist > 2] in-radius 1 [
    ask farmer-on patch-here
-      [  ifelse likely < 1 [set likely (likely + (affinity * .2))]
+      [ ifelse likely < 1 [set likely (likely + (affinity * .2))]
           [set farm_debt 0]
-        
-
-]]
+      
+      
+      
+      ]
 
      rt random 20
 
@@ -239,13 +240,18 @@ to monitor-farmers
     if any? monitor-on patch-here [move-to one-of other farmer with [resist > 2]]
 
      ask farmer-on patch-here
-      [ ifelse likely < 1 [set likely (likely + (affinity * .2))]
-          [set farm_debt 0]]]
+      [ 
+          ifelse likely < 1 [set likely (likely + (affinity * .2))]
+          [set farm_debt 0]
+        
+        
+        ]
     ]
       [fd 2
       rt random 20]
   ]
   ]
+
 
  If Ranger-Activity = "No Monitoring"  ;rangers roam and stop to talk to influential farmers they pass
  [ ask monitor [die]
