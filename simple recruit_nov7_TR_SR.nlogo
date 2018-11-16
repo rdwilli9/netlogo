@@ -8,7 +8,7 @@ farmer-own   [likely             ;; a value of affinity between producers given 
               buddy             ;; a binary variable to identify farmer partners in thwarting
               affinity]         ;; a value of affinity for rangers
 cofarmer-own [reputation         ;; the capacity of a co-farmer to be recognized as a trustworthy people
-              cofarm_debt]       ;; value of the overdrawn of coffee co-farmers given by a ajustable random value
+              ]       ;; value of the overdrawn of coffee co-farmers given by a ajustable random value
 globals [ ]
 
 
@@ -86,7 +86,6 @@ to setup
     set identity random-float 0.3
     set reputation random-poisson 1
     set color blue
-    set cofarm_debt random max_debt_level +  coop_benefit ;; coo-benefit is a global adjustable parameter. Being part of a co-op represent economical benefits.
     ifelse reputation < 1   ;; size of co-farmers is determined by the reputation value.
       [set size 1]
       [set size reputation]
@@ -100,7 +99,6 @@ to setup
     set identity random-float 0.3
     set reputation random-poisson 1
     set color blue
-    set cofarm_debt random max_debt_level + coop_benefit
     ifelse reputation < 1
       [set size 1]
       [set size reputation]
@@ -114,7 +112,6 @@ to setup
     set identity random-float 0.3
     set reputation random-poisson 1
     set color blue
-    set cofarm_debt random max_debt_level + coop_benefit
     ifelse reputation < 1
       [set size 1]
       [set size reputation]
@@ -128,7 +125,6 @@ to setup
     set identity random-float 0.3
     set reputation random-poisson 1
     set color blue
-    set cofarm_debt random max_debt_level + coop_benefit
     ifelse reputation < 1
       [set size 1]
       [set size reputation]
@@ -427,20 +423,6 @@ village_size
 NIL
 HORIZONTAL
 
-SLIDER
-816
-50
-988
-83
-coop_benefit
-coop_benefit
-0
-1400
-100.0
-1
-1
-NIL
-HORIZONTAL
 
 PLOT
 817
