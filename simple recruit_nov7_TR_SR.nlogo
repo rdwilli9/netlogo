@@ -218,8 +218,11 @@ to monitor-farmers
 
     if any? farmer with [resist > 2] in-radius 1 [
    ask farmer-on patch-here
-      [ if farm_debt < 0 [ set farm_debt farm_debt * .9
-        if likely < 1 [set likely (likely + (affinity * .1))]]]
+      [  ifelse likely < 1 [set likely (likely + (affinity * .2))]
+          [set farm_debt 0]
+        
+
+]]
 
      rt random 20
 
@@ -236,8 +239,8 @@ to monitor-farmers
     if any? monitor-on patch-here [move-to one-of other farmer with [resist > 2]]
 
      ask farmer-on patch-here
-      [ if farm_debt < 0 [ set farm_debt farm_debt * .9
-        if likely < 1 [set likely (likely + (affinity * .1))]]]
+      [ ifelse likely < 1 [set likely (likely + (affinity * .2))]
+          [set farm_debt 0]]]
     ]
       [fd 2
       rt random 20]
