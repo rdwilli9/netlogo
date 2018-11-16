@@ -220,7 +220,7 @@ to monitor-farmers
    ask farmer-on patch-here
       [ ifelse likely < 1 [set likely (likely + (affinity * .2))]
           [set farm_debt 0]
-
+   if likely < 0 [set likely 0]
 
 
       ]
@@ -243,7 +243,7 @@ to monitor-farmers
       [
           ifelse likely < 1 [set likely (likely + (affinity * .2))]
           [set farm_debt 0]
-
+   if likely < 0 [set likely 0]
 
         ]
     ]
