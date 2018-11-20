@@ -269,6 +269,11 @@ end
 to-report influence
   report count [in-link-neighbors] of turtles with [color = blue ] ;; set the influence based in the number of links with a blue turtle
 end
+
+to-report percent
+  report (count cofarmer / count turtles)
+end
+
 @#$#@#$#@
 GRAPHICS-WINDOW
 235
