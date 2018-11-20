@@ -271,7 +271,7 @@ to-report influence
 end
 
 to-report percent
-  report (count cofarmer / count turtles)
+  report (count cofarmer / (count cofarmer + count farmer))
 end
 
 @#$#@#$#@
