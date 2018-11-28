@@ -213,10 +213,10 @@ end
 to monitor-farmers
 
  If Ranger-Activity = "Random Monitoring"  ;rangers roam and stop to talk to influential farmers they pass
- [ ask monitor [fd 1
+ [ ask monitor [move-to one-of patches
     if any? monitor-on patch-here [fd 3]
 
-    if any? farmer with [resist > 2] in-radius 1 [
+    if any? farmer-on patch-here[
    ask farmer-on patch-here
       [ ifelse likely < 1 [set likely (likely + (affinity * .2))]
           [set farm_debt 0]
