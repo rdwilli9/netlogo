@@ -9,7 +9,7 @@ farmer-own   [likely             ;; a value of affinity between producers given 
               affinity]         ;; a value of affinity for rangers
 cofarmer-own [reputation         ;; the capacity of a co-farmer to be recognized as a trustworthy people
               cofarm_debt]       ;; value of the overdrawn of coffee co-farmers given by a ajustable random value
-globals [ ]
+globals [ connect netlikely ]
 
 
 to setup
@@ -142,7 +142,8 @@ to setup
    set heading random 360
   ]
 
-
+set connect 0
+set netlikely 0
 
   reset-ticks
 end
@@ -218,7 +219,10 @@ to monitor-farmers
 
     if any? farmer-on patch-here[
    ask farmer-on patch-here
-      [ ifelse likely < 1 [set likely (likely + (affinity * .2))]
+      [ ifelse likely < 1 [set likely (likely + (affinity * .2))
+set connect connect + 1
+set netlikely (netlikely + (affinity * .2))
+]
           [set farm_debt 0]
    if likely < 0 [set likely 0]
 
@@ -241,7 +245,10 @@ to monitor-farmers
 
      ask farmer-on patch-here
       [
-          ifelse likely < 1 [set likely (likely + (affinity * .2))]
+          ifelse likely < 1 [set likely (likely + (affinity * .2))
+set connect connect + 1
+set netlikely (netlikely + (affinity * .2))
+]
           [set farm_debt 0]
    if likely < 0 [set likely 0]
 
