@@ -281,6 +281,14 @@ to-report percent
   report (count cofarmer / (count cofarmer + count farmer))
 end
 
+to-report connects
+report connect
+end
+
+to-report likelihoodchanges
+report netlikely
+end
+
 @#$#@#$#@
 GRAPHICS-WINDOW
 235
